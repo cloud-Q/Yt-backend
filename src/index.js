@@ -1,10 +1,25 @@
-import dotenv from 'dotenv'
+import dotenv from 'dotenv';
 import connectDB from "./db/index.js";
+import express from 'express';
 
 dotenv.config({
     path: './env'
+});
+const app = express();
+
+
+connectDB().then(()=>{
+    app.on('error', (error)=>{
+        console.log('ERR: ', error);
+        throw error
+    });
+    app.listen(process.env.PORT || 8000, () => {
+        console.log(` @ Server is running at port : ${process.env.PORT}`)
+    })
 })
-connectDB()
+.catch((err)=> {
+    console.log('MONGO db connection failed !!! ', err);
+})
 
 
 
@@ -20,7 +35,7 @@ connectDB()
 
 
 
-
+// alternate code but we are going to follow above written code
 // "Immediately Invoked Function Expression" (IIFE), which is a JavaScript function that is executed immediately after it's defined
 /*
 ;( async () => {
