@@ -1,12 +1,12 @@
-const asuncHandler = (requsetHandler) => {
-    (req, res, next) => {
-        Promise.resolve(requsetHandler(req,res,next)).catch((err) => next(err))
+const asyncHandler = (requestHandler) => {
+    return (req, res, next) => {
+        Promise.resolve(requestHandler(req,res,next)).catch((err) => next(err))
     }
 
 }
 
 
-export { asuncHandler }
+export { asyncHandler }
 
 
 // when u write in try catch type code
